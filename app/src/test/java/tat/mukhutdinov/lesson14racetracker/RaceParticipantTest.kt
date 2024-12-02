@@ -41,18 +41,14 @@ class RaceParticipantTest {
 
     @Test
     fun initializedWithValidParameters_ProgressStartsAtInitialValue() {
-
         val participant = RaceParticipant("Runner", 100, 500L, 1, 0)
-
         assertEquals("Initial progress should be 0", 0, participant.currentProgress)
     }
 
     @Test
     fun runUntilMaxProgress_ProgressReachesMaxWithoutError() = runTest {
         val participant = RaceParticipant("Runner", 100, 10L)
-
         participant.run()
-
         assertEquals("Progress should reach max", 100, participant.currentProgress)
     }
 
@@ -61,18 +57,14 @@ class RaceParticipantTest {
     fun resetCalled_ProgressResetsToZero() = runTest {
         val participant = RaceParticipant("Runner", 100, 10L)
         participant.run()
-
         participant.reset()
-
         assertEquals("Progress should reset to 0 after reset", 0, participant.currentProgress)
     }
 
     @Test
     fun incrementAtMinimum_ProgressUpdatesCorrectly() = runTest {
         val participant = RaceParticipant("Runner", 5, 50L, 1, 0)
-
         participant.run()
-
         assertEquals("Progress should increment by 1 and reach 5", 5, participant.currentProgress)
     }
 
@@ -80,7 +72,11 @@ class RaceParticipantTest {
     fun singleIncrementReachesMaxProgress() = runTest {
         val participant = RaceParticipant("Boundary Runner", 100, 10L, 100, 0)
         participant.run()
-        assertEquals( "Progress should reach 100 in one increment",100, participant.currentProgress,)
+        assertEquals(
+            "Progress should reach 100 in one increment",
+            100,
+            participant.currentProgress,
+        )
     }
 
     @Test
@@ -108,7 +104,12 @@ class RaceParticipantTest {
     fun progressFactorCalculatesCorrectly() = runTest {
         val participant = RaceParticipant("Factor Test", 200, 100L, 20, 0)
         participant.run()
-        assertEquals("Progress factor should be 0.1 after one increment", 1.0f, participant.progressFactor, 0.01f)
+        assertEquals(
+            "Progress factor should be 0.1 after one increment",
+            1.0f,
+            participant.progressFactor,
+            0.01f
+        )
     }
 
 
